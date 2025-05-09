@@ -1,45 +1,29 @@
 package com.example.movie_management.service;
 
 import com.example.movie_management.Movie;
-import com.example.movie_management.Service.MovieService;
 import com.example.movie_management.repository.MovieRepository;
-import org.junit.jupiter.api.BeforeEach;
+import com.example.movie_management.Service.MovieService;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.Optional;
 
-@ExtendWith(MockitoExtension.class)
-public class MovieServiceTest {
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-    @Mock
-    private MovieRepository movieRepository;
+class MovieServiceTest {
 
-    @InjectMocks
-    private MovieService movieService;
-
-    private Movie movie;
-
-    @BeforeEach
-    public void setUp() {
-        movie = new Movie();
-        movie.setTitle("Inception");
-        movie.setGenre("Sci-Fi");
-        movie.setReleaseYear(2010);
-    }
+    private final MovieRepository movieRepository = mock(MovieRepository.class);
+    private final MovieService movieService = new MovieService();
 
     @Test
-    public void testCreateMovie() {
-        when(movieRepository.save(movie)).thenReturn(movie);
+    void testGetMovieById() {
+        Movie movie = new Movie("Inception", "Christopher Nolan", 2010, "Sci-Fi");
+        movie.setId(1L);
 
-        // Passer un ID en tant que String si c'est requis dans la méthode
-        Movie createdMovie = movieService.createMovie(movie);
-        assertEquals("Inception", createdMovie.getTitle());
+        when(movieRepository.findById(1L)).thenReturn(Optional.of(movie));
+
+        Optional<Movie> result = movieService.getMovieById(1L);
+        assertTrue(result.isPresent());
+        assertEquals("Inception", result.get().getTitle());
     }
-
-    // Autres tests
 }

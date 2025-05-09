@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des films</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="container">
+    <h1>🎬 Liste des films</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Réalisateur</th>
+            <th>Année</th>
+            <th>Genre</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="movie : ${movies}">
+            <td th:text="${movie.id}">1</td>
+            <td th:text="${movie.title}">Titre</td>
+            <td th:text="${movie.director}">Réalisateur</td>
+            <td th:text="${movie.releaseYear}">2024</td>
+            <td th:text="${movie.genre}">Action</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

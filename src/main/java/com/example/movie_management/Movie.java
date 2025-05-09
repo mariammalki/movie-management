@@ -1,39 +1,70 @@
 package com.example.movie_management;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Movie {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
     private String director;
-    private String genre;
-    private int releaseYear;
+    private int year;
+    private String genre; // ✅ Ajout de genre
 
-    // Constructeurs, getters et setters
-    public Movie() {}
+    public Movie() {
+    }
 
-    public Movie(Long id, String title, String director, String genre) {
-        this.id = id;
+    public Movie(String title, String director, int year, String genre) {
         this.title = title;
         this.director = director;
+        this.year = year;
         this.genre = genre;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
-    public String getDirector() { return director; }
-    public void setDirector(String director) { this.director = director; }
-
-    public String getGenre() { return genre; }
-    public void setGenre(String genre) { this.genre = genre; }
-
-    public void setReleaseYear(int releaseYear) {
-        this.releaseYear = releaseYear;
+    // Getters & Setters
+    public Long getId() {
+        return id;
     }
 
-    public int getReleaseYear() {
-        return releaseYear;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public String getGenre() {  // ✅ Getter
+        return genre;
+    }
+
+    public void setGenre(String genre) {  // ✅ Setter
+        this.genre = genre;
     }
 }
