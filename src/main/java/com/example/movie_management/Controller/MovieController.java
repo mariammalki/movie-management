@@ -1,24 +1,42 @@
-package com.example.movie_management;
+package com.example.movie_management.Controller;
 
+import com.example.movie_management.Movie;
+import com.example.movie_management.Service.MovieService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/movies")
-
 public class MovieController {
-    private final com.example.movie_management.MovieService service;
-    public MovieController(com.example.movie_management.MovieService service) {
-        this.service = service;
+
+    @Autowired
+    private MovieService movieService;
+
+    @PostMapping
+    public Movie createMovie(@RequestBody Movie movie) {
+        return movieService.createMovie(movie);
     }
 
     @GetMapping
-    public List<Movie> getAll() {
-        return service.getAllMovies();
+    public List<Movie> getAllMovies() {
+        return movieService.getAllMovies();
     }
 
-    @PostMapping
-    public Movie addMovie(@RequestBody Movie movie) {
-        return service.saveMovie(movie);
+    @GetMapping("/{id}")
+    public Optional<Movie> getMovieById(@PathVariable Long id) {
+        return movieService.getMovieById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Movie updateMovie(@PathVariable Long id, @RequestBody Movie movie) {
+        return movieService.updateMovie(id, movie);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteMovie(@PathVariable Long id) {
+        movieService.deleteMovie(id);
     }
 }
